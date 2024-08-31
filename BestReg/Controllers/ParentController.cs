@@ -16,6 +16,11 @@ namespace BestReg.Controllers
             // Implementation to show QR code
             return View();
         }
+        public IActionResult Tracker()
+        {
+            // Implementation to show tracking map
+            return View();
+        }
 
         public IActionResult ViewChildData()
         {

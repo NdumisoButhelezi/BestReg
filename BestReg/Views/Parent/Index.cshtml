@@ -6,6 +6,7 @@
 
 <div class="container">
     <div class="row">
+        <!-- QR Code Section -->
         <div class="col-md-4">
             <div class="card mb-4 box-shadow">
                 <div class="card-body">
@@ -15,12 +16,25 @@
                 </div>
             </div>
         </div>
+
+        <!-- Child's Past Data Section -->
         <div class="col-md-4">
             <div class="card mb-4 box-shadow">
                 <div class="card-body">
                     <h5 class="card-title">View Child's Past Data</h5>
                     <p class="card-text">Review the past data associated with your child.</p>
                     <a href="@Url.Action("ViewChildData", "Parent")" class="btn btn-primary">View Data</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Child Tracker Section -->
+        <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Track Child</h5>
+                    <p class="card-text">Track your child's route from home to school in real-time.</p>
+                    <a href="@Url.Action("Tracker", "Parent")" class="btn btn-primary">Track Child</a>
                 </div>
             </div>
         </div>

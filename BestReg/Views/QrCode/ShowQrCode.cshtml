@@ -2,15 +2,30 @@
     ViewData["Title"] = "Your QR Code";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="container text-center">
+    <h2>@ViewData["Title"]</h2>
 
-@if (string.IsNullOrEmpty(ViewBag.QrCodeBase64))
-{
-    <p>No QR code available.</p>
-}
-else
-{
-    <img src="data:image/png;base64,@ViewBag.QrCodeBase64" alt="QR Code" />
-    <br />
-    <a asp-action="DownloadQrCode" class="btn btn-primary">Download QR Code</a>
-}
+    @if (string.IsNullOrEmpty(ViewBag.QrCodeBase64))
+    {
+        <p>No QR code available.</p>
+    }
+    else
+    {
+        <div class="d-flex justify-content-center align-items-center flex-column" style="min-height: 70vh;">
+            <img src="data:image/png;base64,@ViewBag.QrCodeBase64" alt="QR Code" class="img-fluid" style="max-width: 300px;" />
+            <br />
+            <form asp-action="DownloadQrCode" method="post">
+                <div class="form-group">
+                    <label for="format">Choose file format:</label>
+                    <select id="format" name="format" class="form-control">
+                        <option value="png">PNG</option>
+                        <option value="jpeg">JPEG</option>
+                        <option value="bmp">BMP</option>
+                        <option value="pdf">PDF</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Download QR Code</button>
+            </form>
+        </div>
+    }
+</div>
