@@ -32,6 +32,7 @@ namespace BestReg.Data
                 "Admin",
                 "SchoolSecurity",
                 "BusDriver",
+                "Parent",
                 "Student"
             };
 
