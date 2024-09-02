@@ -79,7 +79,7 @@ namespace BestReg.Areas.Identity.Pages.Account
                     {
                         var roles = await _userManager.GetRolesAsync(user);
 
-                        if (roles.Contains("Student") || roles.Contains("Parent"))
+                        if (roles.Contains("Student") || roles.Contains("Parent"))// student to be removed
                         {
                             return RedirectToAction("Index", "Parent");
                         }
