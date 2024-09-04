@@ -10,7 +10,8 @@ namespace BestReg.Data
         {
         }
 
-       //Entities
+        //Entities
+        public DbSet<StudentQRCodeData> StudentQRCodeData { get; set; }
 
 
     }

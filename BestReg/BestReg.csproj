@@ -20,6 +20,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.4" />
     <PackageReference Include="MimeKit" Version="4.7.1" />
     <PackageReference Include="ZXing.Net" Version="0.16.9" />
+    <PackageReference Include="ZXing.Net.Bindings.Windows.Compatibility" Version="0.16.12" />
     <!-- Removed IronBarCode reference -->
     <!-- <PackageReference Include="IronBarCode" Version="2023.9.0" /> -->
   </ItemGroup>

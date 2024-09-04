@@ -21,6 +21,18 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 // Register the EmailService with the dependency injection container
 builder.Services.AddTransient<IEmailService, EmailService>();
 
+
+
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder
+            .WithOrigins("http://myfrontend.com")  // Replace with your allowed origin
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
 // Add services to the container
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -56,6 +68,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Apply the CORS policy
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthentication();
 app.UseAuthorization();
