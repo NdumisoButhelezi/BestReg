@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using BestReg.Data
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
@@ -9,7 +10,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BestReg</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BestReg.styles.css" asp-append-version="true" />
 </head>
@@ -44,19 +45,68 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin Dashboard</a>
                                 </li>
                             }
-                            else if (roles.Contains("Student"))
+                            if (roles.Contains("SystemAdmin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">System Admin Dashboard</a>
+                                </li>
+                            }
+                            if (roles.Contains("FarmManager"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="FarmManager" asp-action="Appointments">View Appointments</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="FarmManager" asp-action="BookAppointment">Book New Appointment</a>
+                                </li>
+                            }
+                            if (roles.Contains("Veterinarian"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="VetAppointments" asp-action="PendingAppointments">Pending Appointments</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="VetAppointments" asp-action="AcceptedAppointments">Accepted Appointments</a>
+                                </li>
+                            }
+                            if (roles.Contains("FarmWorker"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Animal" asp-action="Index">Manage Animals</a>
+                                </li>
+                            }
+                            if (roles.Contains("VetAdmin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="VetAppointments" asp-action="Index">Vet Admin Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="VetAppointments" asp-action="Create">Create Appointment Slot</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="VetAppointments" asp-action="PendingAppointments">Pending Appointments</a>
+                                </li>
+                                
+                            }
+                            if (roles.Contains("ExternalSupplier"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="externalSupplier" asp-action="Dashboard">Supplier Orders</a>
+                                </li>
+                            }
+                            if (roles.Contains("Student"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="QrCode" asp-action="ShowQrCode">My QR Code</a>
                                 </li>
                             }
-                            else if (roles.Contains("Parent"))
+                            if (roles.Contains("Parent"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="QrCode" asp-action="ShowQrCode">My Child's QR Code</a>
                                 </li>
                             }
-                            else if (roles.Contains("BusDriver") || roles.Contains("SchoolSecurity"))
+                            if (roles.Contains("BusDriver") || roles.Contains("SchoolSecurity"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="QrCode" asp-action="ScanQRCode">Scan QR Code</a>
@@ -81,7 +131,6 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
                             </li>
-                           
                         }
                     </ul>
                 </div>
@@ -99,8 +148,8 @@
             &copy; 2024 - BestReg - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

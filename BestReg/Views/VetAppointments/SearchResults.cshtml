@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Animal>
+
+<h2>Search Results</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var animal in Model)
+            {
+                <tr>
+                    <td>@animal.Id</td>
+                    <td>@animal.Name</td>
+                    <td>
+                        <a asp-action="ConductCheckup" asp-route-animalId="@animal.Id" class="btn btn-primary">Conduct Checkup</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No animals found matching the search criteria.</p>
+}

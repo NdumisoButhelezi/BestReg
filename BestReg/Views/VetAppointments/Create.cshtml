@@ -1,0 +1,153 @@
+﻿@model BestReg.Data.VetAppointment
+
+@{
+    ViewData["Title"] = "Create Appointment Slot";
+}
+
+<!-- Add Font Awesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    /* Custom color scheme */
+    .card-custom {
+        background-color: #f8f9fa; /* Light gray background */
+        border-color: #ced4da; /* Border color */
+    }
+
+    .card-header-custom {
+        background-color: #6c757d; /* Dark gray background */
+        color: white; /* White text */
+    }
+
+    .btn-custom {
+        background-color: #6c757d; /* Dark gray background */
+        color: white; /* White text */
+        border-color: #6c757d; /* Border color */
+    }
+
+        .btn-custom:hover {
+            background-color: #5a6268; /* Slightly darker gray on hover */
+            border-color: #545b62; /* Slightly darker border on hover */
+        }
+
+    .text-custom {
+        color: #6c757d; /* Dark gray text */
+    }
+
+    .form-group i {
+        margin-right: 5px;
+    }
+
+    .btn i {
+        margin-right: 5px;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card card-custom shadow-sm">
+                <div class="card-header card-header-custom">
+                    <h3 class="mb-0"><i class="fas fa-calendar-plus"></i> @ViewData["Title"]</h3>
+                </div>
+                <div class="card-body">
+                    <form id="createAppointmentForm" asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="StartTime" class="control-label text-custom">
+                                <i class="fas fa-clock"></i> Start Time
+                            </label>
+                            <input asp-for="StartTime" class="form-control" />
+                            <span asp-validation-for="StartTime" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="EndTime" class="control-label text-custom">
+                                <i class="fas fa-clock"></i> End Time
+                            </label>
+                            <input asp-for="EndTime" class="form-control" />
+                            <span asp-validation-for="EndTime" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="AppointmentType" class="control-label text-custom">
+                                <i class="fas fa-stethoscope"></i> Appointment Type
+                            </label>
+                            <select asp-for="AppointmentType" class="form-control" asp-items="ViewBag.AppointmentTypes"></select>
+                            <span asp-validation-for="AppointmentType" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="VetAdminId" class="control-label text-custom">
+                                <i class="fas fa-user-md"></i> Vet Admin ID
+                            </label>
+                            <input asp-for="VetAdminId" class="form-control" />
+                            <span asp-validation-for="VetAdminId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-custom btn-lg">
+                                <i class="fas fa-save"></i> Create
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8 text-center">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById('createAppointmentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var form = e.target;
+            var formData = new FormData(form);
+
+            axios.post(form.action, formData, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+                .then(function (response) {
+                    if (response.data.success) {
+                        // Clear the form
+                        form.reset();
+
+                        // Show a success message
+                        alert('Appointment created successfully!');
+
+                        // Optionally, update the appointment list or reload the page
+                        // location.reload();
+                    } else {
+                        // Show error messages
+                        var errorMessage = 'Error creating appointment:\n';
+                        if (response.data.errors && response.data.errors.length > 0) {
+                            errorMessage += response.data.errors.join('\n');
+                        } else {
+                            errorMessage += response.data.message;
+                        }
+                        alert(errorMessage);
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while creating the appointment.');
+                });
+        });
+    </script>
+}
