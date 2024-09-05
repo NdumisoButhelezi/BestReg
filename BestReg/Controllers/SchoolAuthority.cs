@@ -11,10 +11,14 @@ namespace BestReg.Controllers
             return View();
         }
 
-        public IActionResult ScanIn()
+        [HttpPost]
+        public IActionResult ScanIn(string qrCode)
         {
-            // Logic for scanning learners in
-            return View();
+            // Optionally process the QR code here if needed
+            // For example, you might want to store or validate the QR code
+
+            // Redirect to the ScanQRCode page
+            return RedirectToAction("ScanQRCode");
         }
 
         public IActionResult ScanOut()
