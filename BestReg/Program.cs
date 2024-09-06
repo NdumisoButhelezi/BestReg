@@ -33,9 +33,13 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     try
     {
+        var context = services.GetRequiredService<ApplicationDbContext>();
+
+        // Ensure the database is created
+        await context.Database.EnsureCreatedAsync();
+
         var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-        var context = services.GetRequiredService<ApplicationDbContext>();
         await DbInitializer.InitializeAsync(context, userManager, roleManager);
     }
     catch (Exception ex)
