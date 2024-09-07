@@ -24,32 +24,31 @@ namespace BestReg.Data
                 await SeedAdminUserAsync(userManager, roleManager);
             }
         }
-
         private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
         {
-            var roles = new[]
+            string[] roles = { "Admin", "SchoolSecurity", "BusDriver", "Student", "Parent" };
+            foreach (var role in roles)
             {
-        "Admin",
-        "SchoolSecurity",
-        "BusDriver",
-        "Student",
-        "Parent"
-    };
-
-            foreach (var roleName in roles)
-            {
-                if (!await roleManager.RoleExistsAsync(roleName))
-                {
-                    var role = new IdentityRole(roleName);
-                    var result = await roleManager.CreateAsync(role);
-                    if (!result.Succeeded)
-                    {
-                        Console.WriteLine($"Error creating role {roleName}: {string.Join(", ", result.Errors.Select(e => e.Description))}");
-                    }
-                }
+                await roleManager.CreateAsync(new IdentityRole(role));
             }
+        }
 
-            Console.WriteLine("Roles seeded successfully.");
+        private static async Task SeedUsersAsync(UserManager<ApplicationUser> userManager)
+        {
+            var users = new List<(ApplicationUser User, string Password, string Role)>
+        {
+            (new ApplicationUser { UserName = "admin@example.com", Email = "admin@example.com", EmailConfirmed = true }, "Admin@123", "Admin"),
+            (new ApplicationUser { UserName = "security@example.com", Email = "security@example.com", EmailConfirmed = true }, "Security@123", "SchoolSecurity"),
+            (new ApplicationUser { UserName = "driver@example.com", Email = "driver@example.com", EmailConfirmed = true }, "Driver@123", "BusDriver"),
+            (new ApplicationUser { UserName = "student@example.com", Email = "student@example.com", EmailConfirmed = true }, "Student@123", "Student"),
+            (new ApplicationUser { UserName = "parent@example.com", Email = "parent@example.com", EmailConfirmed = true }, "Parent@123", "Parent")
+        };
+
+            foreach (var (user, password, role) in users)
+            {
+                await userManager.CreateAsync(user, password);
+                await userManager.AddToRoleAsync(user, role);
+            }
         }
 
 
