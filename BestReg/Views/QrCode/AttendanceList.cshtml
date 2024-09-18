@@ -1,0 +1,26 @@
+﻿@model List<AttendanceRecord>
+
+<h2>Attendance List</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date</th>
+            <th>Check-In Time</th>
+            <th>Check-Out Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in Model)
+        {
+            <tr>
+                <td>@record.User.FirstName @record.User.LastName</td>
+                <td>@record.User.Email</td>
+                <td>@record.AttendanceDate.ToShortDateString()</td>
+                <td>@record.CheckInTime.ToShortTimeString()</td>
+                <td>@(record.CheckOutTime?.ToShortTimeString() ?? "Not checked out")</td>
+            </tr>
+        }
+    </tbody>
+</table>

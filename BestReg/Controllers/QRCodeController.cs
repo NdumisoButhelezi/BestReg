@@ -136,5 +136,22 @@ namespace BestReg.Controllers
 
             return View(viewModel);
         }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AttendanceList()
+        {
+            var attendanceRecords = await _context.AttendanceRecords
+                .Include(a => a.User)
+                .OrderByDescending(a => a.AttendanceDate)
+                .ToListAsync();
+            return View(attendanceRecords);
+        }
+
+
+
+
+
     }
 }

@@ -23,4 +23,6 @@ public class AttendanceRecord
     public DateTime CheckInTime { get; set; }
     public DateTime? CheckOutTime { get; set; }
     public DateTime AttendanceDate { get; set; }
+    public ApplicationUser User { get; set; } // Add this navigation property
+
 }
